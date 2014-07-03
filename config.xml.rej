@@ -1,0 +1,11 @@
+diff a/config.xml b/config.xml	(rejected hunks)
+@@ -25,6 +25,9 @@
+ 	<preference name="android-launchMode" value="singleInstance" />
+ 	<preference name="android-alwaysRetainTaskState" value="true" />
+ 
++    <!-- Se adiciona para la gestión de Notificaciones Push (020714)-->
++    <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
++
+     <!-- Android icons -->
+     <icon src="Resources/icons/android/36x36.png"  gap:platform="android" gap:density="ldpi" />
+     <icon src="Resources/icons/android/48x48.png"  gap:platform="android" gap:density="mdpi" />
