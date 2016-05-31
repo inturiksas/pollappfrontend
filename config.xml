@@ -25,16 +25,17 @@
 	<preference name="android-launchMode" value="singleInstance" />
 	<preference name="android-alwaysRetainTaskState" value="true" />
 
-    <platform name="android">
-        <icon src="Resources/icons/android/36x36.png" density="ldpi"/>
-        <icon src="Resources/icons/android/48x48.png" density="mdpi"/>
-        <icon src="Resources/icons/android/72x72.png" density="hdpi"/>
-        <icon src="Resources/icons/android/96x96.png" density="xhdpi"/>                
-        <splash src="Resources/splash/android/200x320.png" density="port-ldpi"/>
-        <splash src="Resources/splash/android/320x480.png" density="port-mdpi"/>
-        <splash src="Resources/splash/android/480x800.png" density="port-hdpi"/>
-        <splash src="Resources/splash/android/720X1280.png" density="port-xhdpi"/>        
-    </platform>   
+    <!-- Android icons -->
+    <icon src="Resources/icons/android/36x36.png"  gap:platform="android" gap:density="ldpi" />
+    <icon src="Resources/icons/android/48x48.png"  gap:platform="android" gap:density="mdpi" />
+    <icon src="Resources/icons/android/72x72.png"  gap:platform="android" gap:density="hdpi" />
+    <icon src="Resources/icons/android/96x96.png"  gap:platform="android" gap:density="xhdpi" /> 
+
+    <!-- Android splashes -->
+    <gap:splash src="Resources/splash/android/200x320.png"  gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="Resources/splash/android/320x480.png"  gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="Resources/splash/android/480x800.png"  gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="Resources/splash/android/720X1280.png" gap:platform="android" gap:density="xhdpi" />
 
     <access origin="*"/>
     <allow-intent href="http://*/*"/>
