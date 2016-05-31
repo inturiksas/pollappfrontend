@@ -15,7 +15,8 @@
     <author href="http://pollapp.co/">
         Lead IS Consulting
     </author>
-    
+
+    <preference name="phonegap-version" value="cli-5.2.0" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="handset" />
     <preference name="auto-hide-splash-screen" value="false" />
@@ -47,5 +48,5 @@
 
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
-
+    
 </widget>
