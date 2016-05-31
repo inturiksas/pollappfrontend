@@ -22,44 +22,16 @@ $(function() {
 
     idPolla = Request.Params["id"];
 
-   $("#nav li a").click(function() {
-        //$("#ajax-content").empty().append("<div id='loading'><img src='../img/loading2.gif' alt='Loading' /></div>");
-        //$("#nav li a").removeClass('current');
-        //$(this).addClass('current');   
+    $("#nav li a").click(function() {        
 
         $('.title h3').html($(this).data('label'));
-        var round = $(this).data('round');
+        var round = $(this).data('round');      
 
-        //if (parseInt(round) == 1) {return};
-        console.log("Entro"); 
+        cargarPartidos(round);       
 
-        cargarPartidos(round);
-
-        /*if(parseInt(round) === 1) {
-            console.log(this.href); 
-            console.log("Entro 1"); 
-            var url = this.href;        
-            //var pos = url.lastIndexOf('/');
-            //var urlAux = url.substring((pos+1));
-            var urlAux = url;
-            console.log(urlAux);
-    	    $("#ajax-content").empty().append("<div id='loading'><img src='../img/loading2.gif' alt='Loading' /></div>");
-            $.ajax({ 
-                url: urlAux, 
-                async:true, 
-                global: false,
-                success: function(html) {
-                    $("#ajax-content").empty().append(html);
-                }
-            });
-        } else {
-            console.log("Entro else"); 
-            cargarPartidos(round);
-        }*/
-
-    	return false;
+        return false;
     });
- 
+
     //se ejecuta el evento click en el primer tab para forzar la carga
     $("#nav li a").first().trigger('click');
 
@@ -69,6 +41,13 @@ $(function() {
     });
 
     function cargarPartidos(idRound) {
+
+        if(idRound === 0){
+            $("#ajax-content").empty();
+            loadGrupos();
+            return;
+        }
+
         var idTransaccion = getIdTransaccion();
         var apiUrl = Servicios.getMatchsByRound;
 
@@ -86,8 +65,7 @@ $(function() {
                 user: defaultUserName
             },
             success: function(data) {  
-                try {                       
-                    console.log(data);
+                try {                                           
                     $("#ajax-content").empty();
 
                     var partidos = data.lstMatchDTO;
@@ -106,7 +84,7 @@ $(function() {
                         $('section').append('No hay partidos para esta fase.');
                     }
                 } catch(e) {
-                    
+
                 }
 
                 onAjaxComplete();
@@ -119,73 +97,186 @@ $(function() {
             },
             complete: function(xhr, textStatus ) {
                 if(textStatus !== 'success') {
-                   onAjaxComplete();
-                }
-            } 
-        });
+                 onAjaxComplete();
+             }
+         } 
+     });
+}
+
+function adicionarPartido(index, partido) {    
+
+    var fechaSplit = formatDate(partido.date).split('-');
+    var fechaPartido = new Date(partido.date);  
+    var day = weekdays[fechaPartido.getDay()]+', '+months[fechaPartido.getMonth()]+' '+fechaSplit[2]+' de '+fechaPartido.getFullYear()+' - '+partido.hour;        
+
+    $('#ajax-content').append(
+        '<div class="ui-grid-b gri_grupos" data-teama="'+partido.teamA+
+        '" data-teamb="'+partido.teamB+'" '+
+        '" data-imga="'+partido.flagTeamA+'" '+
+        '" data-imgb="'+partido.flagTeamB+'" '+
+        '" data-day="'+day+'" '+
+        '" data-date="'+formatDate(partido.date)+' '+partido.hour+':00" '+
+        '" data-idpolla="'+idPolla+'" '+
+        '" data-idmatch="'+partido.id+'">'+
+        '<div class="ui-block-a">'+
+        '<img src="../img/flags/'+partido.flagTeamA+'" alt="'+partido.flagTeamA+'"></img>'+
+        '</br><span>'+partido.teamA+'</span>'+
+        '</div>'+
+        '<div class="ui-block-b">'+
+        '<h3>VS</h3>'+
+        '</div>'+
+        '<div class="ui-block-c">'+
+        '<img src="../img/flags/'+partido.flagTeamB+'" alt="'+partido.flagTeamB+'"></img>'+
+        '</br><span>'+partido.teamB+'</span>'+
+        '</div>'+
+        '</div>'+
+        'Grupo '+partido.nameGroup+'</br>'+
+        day+'</br>'+
+        partido.stadium+'</br></br> ---------------------------------------');
+}
+
+function loadGrupos () {
+
+
+    $('#ajax-content').append(
+        ' <div class="ui-grid-a gri_grupos" >'+  
+        '<div  class="ui-block-a" >'+
+        '<a><h1>GRUPO A</h1></a> '+
+        '<div>'+
+        '<img src="../img/flags/EEUU.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>USA</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Colombia.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Colombia</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/CostaRica.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Costa Rica</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Paraguay.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Paraguay</h2>'+
+        '</div>'+
+        '<a><h1>GRUPO C</h1></a>'+
+        '<div>'+
+        '<img src="../img/flags/Mexico.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>México</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Uruguay.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Uruguay</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Jamaica.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Jamaica</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Venezuela.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Venezuela</h2>'+
+        '</div>'+     
+
+        '</div>'+
+
+        '<div class="ui-block-b">'+
+        '<a><h1>GRUPO B</h1></a>'+
+        '<div>'+
+        '<img src="../img/flags/Brasil.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Brasil</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Ecuador.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Ecuador</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Haiti.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Haití</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Peru.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Perú</h2>'+
+        '</div>'+
+
+        '<a><h1>GRUPO D</h1></a>'+
+        '<div>'+
+        '<img src="../img/flags/Argentina.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Argentina</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Chile.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Chile</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Panama.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Panama</h2>'+
+        '</div>'+
+        '<div>'+
+        '<img src="../img/flags/Bolivia.png">'+
+        '</div>'+
+        '<div>'+
+        '<h2>Bolivia</h2>'+
+        '</div>'
+        );
+
+
+}   
+
+function ingresarMarcador(e) {
+    try {
+
+        var _this = $(e.target);
+        var parentDiv = _this.parents('div.ui-grid-b.gri_grupos');
+        console.log('parentDiv', parentDiv);
+        parentDiv = parentDiv === null || parentDiv === undefined ? _this : parentDiv;
+
+        var params = encodeURIComponent('teamA='+parentDiv.data('teama')+'&teamB='+parentDiv.data('teamb')+
+            '&imgA='+parentDiv.data('imga')+'&imgB='+parentDiv.data('imgb')+
+            '&date='+parentDiv.data('date')+'&idPolla='+parentDiv.data('idpolla')+
+            '&idMatch='+parentDiv.data('idmatch')+'&day='+parentDiv.data('day'));            
+
+        window.location.href = '../8partidosporfecha/partidosporfecha.html?'+params;            
+    } catch(err) {
+        alert('Ha ocurrido un error inesperado desplegando la pantalla de marcadores. '+err);
     }
+}
 
-    function adicionarPartido(index, partido) {    
-        
-        var fechaSplit = formatDate(partido.date).split('-');
-        var fechaPartido = new Date(partido.date);  
-        var day = weekdays[fechaPartido.getDay()]+', '+months[fechaPartido.getMonth()]+' '+fechaSplit[2]+' de '+fechaPartido.getFullYear()+' - '+partido.hour;        
+function onAjaxLoad() {    
+    $('.ajax-load').css('display', 'block');
+}
 
-        $('#ajax-content').append(
-            '<div class="ui-grid-b gri_grupos" data-teama="'+partido.teamA+
-                '" data-teamb="'+partido.teamB+'" '+
-                '" data-imga="'+partido.flagTeamA+'" '+
-                '" data-imgb="'+partido.flagTeamB+'" '+
-                '" data-day="'+day+'" '+
-                '" data-date="'+formatDate(partido.date)+' '+partido.hour+':00" '+
-                '" data-idpolla="'+idPolla+'" '+
-                '" data-idmatch="'+partido.id+'">'+
-                '<div class="ui-block-a">'+
-                    '<img src="../img/flags/'+partido.flagTeamA+'" alt="'+partido.flagTeamA+'"></img>'+
-                    '</br><span>'+partido.teamA+'</span>'+
-                '</div>'+
-                '<div class="ui-block-b">'+
-                    '<h3>VS</h3>'+
-                '</div>'+
-                '<div class="ui-block-c">'+
-                    '<img src="../img/flags/'+partido.flagTeamB+'" alt="'+partido.flagTeamB+'"></img>'+
-                    '</br><span>'+partido.teamB+'</span>'+
-                '</div>'+
-            '</div>'+
-            'Grupo '+partido.nameGroup+'</br>'+
-            day+'</br>'+
-            partido.stadium+'</br></br> ---------------------------------------');
-    }    
-
-    function ingresarMarcador(e) {
-        try {
-            //e.preventDefault();
-            var _this = $(e.target);
-            var parentDiv = _this.parents('div.ui-grid-b.gri_grupos');
-            console.log('parentDiv', parentDiv);
-            parentDiv = parentDiv === null || parentDiv === undefined ? _this : parentDiv;
-
-            var params = encodeURIComponent('teamA='+parentDiv.data('teama')+'&teamB='+parentDiv.data('teamb')+
-                '&imgA='+parentDiv.data('imga')+'&imgB='+parentDiv.data('imgb')+
-                '&date='+parentDiv.data('date')+'&idPolla='+parentDiv.data('idpolla')+
-                '&idMatch='+parentDiv.data('idmatch')+'&day='+parentDiv.data('day'));
-
-            console.log(params);
-
-            window.location.href = '../8partidosporfecha/partidosporfecha.html?'+params;
-            //window.location.href = '../8partidosporfecha/partidosporfecha.html?';
-        } catch(err) {
-            alert('Ha ocurrido un error inesperado desplegando la pantalla de marcadores. '+err);
-        }
-    }
-
-    function onAjaxLoad() {    
-        $('.ajax-load').css('display', 'block');
-    }
-
-    function onAjaxComplete() {
-        $('.ajax-load').css('display', 'none');
-    }
+function onAjaxComplete() {
+    $('.ajax-load').css('display', 'none');
+}
 });
 
 

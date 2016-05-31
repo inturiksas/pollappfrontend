@@ -2,9 +2,9 @@
 <widget
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:gap="http://phonegap.com/ns/1.0"
-    id="us.pollapp.inturik"
-    versionCode="1300"
-    version="0.3.0.8">
+    id="co.pollapp"
+    versionCode="1400"
+    version="0.1.0.0">
    
     <name>PollApp</name>
 
@@ -12,11 +12,10 @@
         PollApp es una aplicación móvil gratuita con la que podrás predecir con tus amigos los resultados de tus deportes favoritos.
      </description>
 
-    <author href="http://pollapp.us/">
-        Inturik SAS
+    <author href="http://pollapp.co/">
+        Lead IS Consulting
     </author>
-
-    <preference name="phonegap-version" value="3.1.0" />
+    
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="handset" />
     <preference name="auto-hide-splash-screen" value="false" />
@@ -45,4 +44,8 @@
     <gap:splash src="Resources/splash/ios/320x480.png" gap:platform="ios" width="320" height="480" />
     <gap:splash src="Resources/splash/ios/640x960.png" gap:platform="ios" width="640" height="960" />
     <gap:splash src="Resources/splash/ios/640x1136.png" gap:platform="ios" width="640" height="1136" />
+
+    <allow-intent href="http://*/*"/>
+    <allow-intent href="https://*/*"/>
+
 </widget>

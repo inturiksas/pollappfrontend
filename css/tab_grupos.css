@@ -74,7 +74,7 @@ section .modelsGrid .modelPhoto{border:5px #e1b800 solid;height:80%;width:80%}*/
 	text-align: center;
 }
 
-h3 {
+.title {
 	text-align:center;
 	color:#fff;
 	font-weight:bold;

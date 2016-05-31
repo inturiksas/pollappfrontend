@@ -13,9 +13,7 @@ $(function()
 
 	validateUserLogIn();
 
-	function validateUserLogIn(){
-
-		console.log("Validate User log in");
+	function validateUserLogIn(){		
 
 		var isUserLogIn = isLogIn();		
 
@@ -55,9 +53,7 @@ $(function()
 
 				$('#msg').css({
 					visibility: 'visible'
-				});
-
-				console.log("Error: "+ + xhr.status);
+				});				
 			},
 			beforeSend: function( xhr ) {
 				onAjaxLoad();
